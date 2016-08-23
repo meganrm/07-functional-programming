@@ -74,18 +74,24 @@ Article.numWordsAll = function() {
 };
 
   Article.allAuthors = function() {
-    return Article.allArticles.map(function(currentArticle){
-      return currentArticle.author;
-    }).reduce(function(acc, cur, index, array){
-      if(acc.indexOf(cur)===-1)
-        {
-        console.log('not in array, pushing new value', cur);
-        acc.push(cur);
-      }
-      return acc;
-    }, []);
-  }
+   return Article.allArticles.map(function (articleObject) {
+    return articleObject.author;
+   }).filter(function (authorElement, index, array) {
+    return array.indexOf(authorElement) === index;
+  })
+}
 
+
+// return Article.allArticles.map(function(currentArticle){
+//   return currentArticle.author;
+// }).reduce(function(acc, cur, index, array){
+//   if(acc.indexOf(cur)===-1)
+//   {
+//     console.log('not in array, pushing new value', cur);
+//     acc.push(cur);
+//   }
+//   return acc;
+// }, []);
 
   // TODO: return a mapped collection
       // with just the author names
