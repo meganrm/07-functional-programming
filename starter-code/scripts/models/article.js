@@ -73,27 +73,14 @@ Article.numWordsAll = function() {
   })
 };
 
-  Article.allAuthors = function() {
-   return Article.allArticles.map(function (articleObject) {
+Article.allAuthors = function() {
+  return Article.allArticles.map(function (articleObject) {
     return articleObject.author;
-   }).filter(function (authorElement, index, array) {
+  }).filter(function (authorElement, index, array) {
     return array.indexOf(authorElement) === index;
-  })
-}
-
-
-// return Article.allArticles.map(function(currentArticle){
-//   return currentArticle.author;
-// }).reduce(function(acc, cur, index, array){
-//   if(acc.indexOf(cur)===-1)
-//   {
-//     console.log('not in array, pushing new value', cur);
-//     acc.push(cur);
-//   }
-//   return acc;
-// }, []);
-
-  // TODO: return a mapped collection
+  });
+};
+  // TODO:DONE return a mapped collection
       // with just the author names
 
       //then chain reduce, and set the accumulator to an array
@@ -101,13 +88,20 @@ Article.numWordsAll = function() {
 
 
 Article.numWordsByAuthor = function() {
-  // TODO: transform each author element into an object with 2 properties:
+  // TODO:DONE transform each author element into an object with 2 properties:
     // one for the author's name, and one for the total number of words
     // written by the specified author.
     return Article.allAuthors().map(function(currentAuthor) {
       return {
         name: currentAuthor,
-        numWords: ''// someCollection.filter(function(curArticle) {
+        numWords: Article.allArticles.filter(function (element, index, array) {
+           return element.author === currentAuthor;
+        }).map(function (currentArticle){
+          return currentArticle.body.split(' ').length
+        }).reduce(function (acc, cur){
+           return acc+cur;
+        })
+        // someCollection.filter(function(curArticle) {
           // what do we return here to check for matching authors?}
         // .map() to return the author's word count for each article body (you may split or regexp)
         // .reduce() to squash this array into one big number, per author.
